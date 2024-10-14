@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lista de Usuarios</title>
+
+    <!-- Materialize CSS -->
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <h3 class="center-align">Lista de Usuarios</h3>
+      <ul id="userList" class="collection">
+        <!-- Aquí se llenará la lista de usuarios con JavaScript -->
+      </ul>
+    </div>
+
+    <!-- Materialize JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+    <!-- Lógica para obtener y mostrar la lista de usuarios -->
+    <script>
+      axios
+        .get("http://localhost:3000/api/users")
+        .then((response) => {
+          const userList = document.getElementById("userList");
+          response.data.forEach((user) => {
+            const listItem = document.createElement("li");
+            listItem.className = "collection-item";
+            listItem.textContent = `${user.fullname} (${user.username})`;
+            userList.appendChild(listItem);
+          });
+        })
+        .catch((error) => {
+          console.error("Error al obtener la lista de usuarios:", error);
+        });
+    </script>
+  </body>
+</html>
